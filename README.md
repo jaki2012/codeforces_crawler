@@ -66,7 +66,7 @@ An scraped entity represents a submission with the structure below:
  
 We also provide two examples:
 
-query by `db.getCollection('submissions').find({"verdict":"OK", "language": "Python 3"})`
+which are selected from query `db.getCollection('submissions').find({"verdict":"OK", "language": "Python 3"})`
 ```
 {
     "_id" : ObjectId("5c002203970c2930e28adb13"),
