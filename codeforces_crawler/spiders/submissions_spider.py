@@ -32,6 +32,7 @@ class SubmissionsSpider(scrapy.Spider):
 
         # self.handles_num = 0
         urls = [
+            'https://codeforces.com/problemset/status/1082/problem/F'
             # 'https://codeforces.com/problemset/status/276/problem/C',
             # 'https://codeforces.com/problemset/status/141/problem/A',
             # 'https://codeforces.com/problemset/status/492/problem/B',
@@ -44,7 +45,7 @@ class SubmissionsSpider(scrapy.Spider):
             # 'https://codeforces.com/problemset/status/913/problem/B',
             # 'https://codeforces.com/problemset/status/1056/problem/D',
             # 'https://codeforces.com/problemset/status/567/problem/C',
-            'https://codeforces.com/problemset/status/1077/problem/D'
+            # 'https://codeforces.com/problemset/status/1077/problem/D'
         ]
         for url in urls:
             yield scrapy.Request(url=url, headers=self.headers, cookies={'JSESSIONID':'84161C8132F49575182A59A1BBFF0BD2-n1','39ce7':'CFPIQlgp'}, callback=self.parse)
