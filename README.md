@@ -1,5 +1,6 @@
-# CodeForces-Crawler
+# CodeForces-Crawler 
 [![Build Status](https://travis-ci.org/jaki2012/codeforces_crawler.svg?branch=master)](https://travis-ci.org/jaki2012/codeforces_crawler)
+
 
 A scrapy-based crawler for all **submissions** (including source code) of any specific problems on www.codeforces.com.
 
@@ -8,6 +9,9 @@ Since the [provided APIs](https://codeforces.com/api/help/objects) of CodeForces
 **Prerequisites**:  
 - [Python 3 or above](https://www.python.org/)
 - [MongoDB](https://www.mongodb.com/)
+
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-by-codebabes.svg)](https://forthebadge.com)
 
 # Usage:
 ### Step 0 - Set up the virtual enviroment (Optional)
