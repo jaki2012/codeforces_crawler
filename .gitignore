@@ -61,6 +61,9 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
+# Generated source files
+output_dir/*
+
 # Mac OS X
 .DS_Store
 
