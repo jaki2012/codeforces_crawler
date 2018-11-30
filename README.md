@@ -1,5 +1,5 @@
-# codeforces_crawler
-
+# CodeForces-Crawler
+[![Build Status](https://travis-ci.org/jaki2012/codeforces_crawler.svg?branch=master)](https://travis-ci.org/jaki2012/codeforces_crawler)
 A scrapy-based crawler for all **submissions** (including source code) of any specific problems on www.codeforces.com.
 
 Since the [provided APIs](https://codeforces.com/api/help/objects) of CodeForces is not so strong as Github, I endeavored to process the front-end requests within Codeforces websites. Now the crawler is not limited to API restrictions.  
