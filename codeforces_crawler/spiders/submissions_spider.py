@@ -3,6 +3,7 @@ import json
 import re
 import time
 from scrapy.spidermiddlewares.httperror import HttpError
+from twisted.internet.error import TimeoutError, TCPTimedOutError
 from codeforces_crawler.items import CodeforcesSubmissionItem
 
 class SubmissionsSpider(scrapy.Spider):
@@ -31,9 +32,6 @@ class SubmissionsSpider(scrapy.Spider):
 
         # self.handles_num = 0
         urls = [
-            'https://codeforces.com/problemset/status/141/problem/A/page/523?order=BY_ARRIVED_DESC',
-            'https://codeforces.com/problemset/status/492/problem/B/page/788?order=BY_ARRIVED_DESC',
-            'https://codeforces.com/problemset/status/446/problem/A/page/577?order=BY_ARRIVED_DESC'
             # 'https://codeforces.com/problemset/status/276/problem/C',
             # 'https://codeforces.com/problemset/status/141/problem/A',
             # 'https://codeforces.com/problemset/status/492/problem/B',
@@ -46,6 +44,7 @@ class SubmissionsSpider(scrapy.Spider):
             # 'https://codeforces.com/problemset/status/913/problem/B',
             # 'https://codeforces.com/problemset/status/1056/problem/D',
             # 'https://codeforces.com/problemset/status/567/problem/C',
+            'https://codeforces.com/problemset/status/1077/problem/D'
         ]
         for url in urls:
             yield scrapy.Request(url=url, headers=self.headers, cookies={'JSESSIONID':'84161C8132F49575182A59A1BBFF0BD2-n1','39ce7':'CFPIQlgp'}, callback=self.parse)
@@ -67,7 +66,7 @@ class SubmissionsSpider(scrapy.Spider):
                 continue
             # print(submission_verdict)
             time.sleep(0.1)
-            # request for the code of this solution
+            # request for the source code of this solution
             yield scrapy.FormRequest.from_response(response, url='http://codeforces.com/data/submitSource',
                                                     formdata={
                                                         'submissionId': submission_id,
@@ -99,15 +98,22 @@ class SubmissionsSpider(scrapy.Spider):
 
 
     def print_errlog(self, failure):
+        # log all failures
         self.logger.error(repr(failure))
-
+        self.logger.error('An error happens while hanlding reqeust:')
         err_request = failure.value.response.request
-        print(err_request.headers)
+        self.logger.info(err_request.headers)
+        if failure.check(HttpError):
+            # get the non-200 reponse
+            response = failure.value.response
+            self.logger.error('HttpError on %s', response.url)
+        elif failure.check(TimeoutError, TCPTimedOutError):
+            request = failure.request
+            self.logger.error('TimeoutError on %s', request.url)
 
     def parse_submission(self, response):
         try:
             response_json = json.loads(response.body)
-            
             item = CodeforcesSubmissionItem()
             
             outputs = { }
@@ -125,6 +131,4 @@ class SubmissionsSpider(scrapy.Spider):
             
             yield item
         except Exception as e:
-            # print (response.meta['submission_id'])
-            print(e)
-            return
+            self.logger.error("parse submission failed" + e)

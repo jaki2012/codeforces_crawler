@@ -27,8 +27,8 @@ NEWSPIDER_MODULE = 'codeforces_crawler.spiders'
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
 DOWNLOAD_DELAY = 1
+
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -92,9 +92,9 @@ ITEM_PIPELINES = {
 
 # Replace the 'debug' level with 'info' level
 LOG_LEVEL = 'INFO'
-
+LOG_FILE = None
 # Mongodb connection and export settings
-MONGO_HOST = '127.0.0.1'
+MONGO_HOST = '120.79.15.205'
 MONGO_PORT = 27016
 MONGO_DB = 'codeforces_crawler'
 MONGO_COLLECTION = 'submissions'
