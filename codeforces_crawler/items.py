@@ -16,5 +16,7 @@ class CodeforcesSubmissionItem(scrapy.Item):
     problem_name = scrapy.Field()
     # the content of the source code
     source_code = scrapy.Field()
+    # the outputs
+    outputs = scrapy.Field()
     # the programming language of this solution
     language = scrapy.Field()
