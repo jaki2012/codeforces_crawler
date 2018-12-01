@@ -61,14 +61,16 @@ for s in submissions:
 
     # what if the problem name contains '/'
     # lyoi_#62. 「LYOI2016 Summer」A / B Problem_15154.cpp
-    if '/' in s['problem_name']:
-        print('yes')
-        print(s['problem_name'])
+    # if '/' in s['problem_name']:
+    #     print('yes')
+    #     print(s['problem_name'])
+
+    # TODO: HANDLE UNICODE ENCODING IN SOURCEFILE
     s['problem_name'] = s['problem_name'].replace('/', 'divide')
 
     src_file_name = '{}_{}_{}.{}'.format(s['round_id'], s['problem_name'], s['submission_id'], ext)
 
-    # print("Generating: %s" % src_file_name)
+    print("Generating: %s" % src_file_name)
         
     create_directory('./{}/{}/{}/{}'.format(output_dir_name, s['round_id'], s['problem_name'], s['language']))
     with open('./{}/{}/{}/{}/{}'.format(output_dir_name, s['round_id'], s['problem_name'], s['language'],
