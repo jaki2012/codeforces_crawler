@@ -1,3 +1,4 @@
+# -*- coding:UTF-8 -*-
 from ast import literal_eval
 import os
 import sys
@@ -21,7 +22,12 @@ EXTENTIONS_DICT = {
     'Java 7'       : 'java'    ,
     'Java 6'       : 'java'    ,
     'Python 3'     : 'py'      ,
-    'Python 2'     : 'py'      
+    'Python 2'     : 'py'      ,
+
+    # adation to lyoi_crawler
+    'C'            : 'c'       ,
+    'C++'          : 'cpp'     ,
+    'C++11'        : 'cpp'     
 }
 
 if len(sys.argv) < 3:
@@ -49,11 +55,22 @@ for s in submissions:
     # extention name 
     ext = EXTENTIONS_DICT[language]
 
+    # adpation to lyoi_crawler
+    if 'round_id' not in s.keys():
+        s['round_id'] = 'LYOI'
+
+    # what if the problem name contains '/'
+    # lyoi_#62. 「LYOI2016 Summer」A / B Problem_15154.cpp
+    if '/' in s['problem_name']:
+        print('yes')
+        print(s['problem_name'])
+    s['problem_name'] = s['problem_name'].replace('/', 'divide')
+
     src_file_name = '{}_{}_{}.{}'.format(s['round_id'], s['problem_name'], s['submission_id'], ext)
 
-    print("Generating: %s" % src_file_name)
+    # print("Generating: %s" % src_file_name)
+        
     create_directory('./{}/{}/{}/{}'.format(output_dir_name, s['round_id'], s['problem_name'], s['language']))
-
     with open('./{}/{}/{}/{}/{}'.format(output_dir_name, s['round_id'], s['problem_name'], s['language'],
                                         src_file_name), 'w') as output:
         output.write(source_code)
