@@ -74,5 +74,5 @@ for s in submissions:
         
     create_directory('./{}/{}/{}/{}'.format(output_dir_name, s['round_id'], s['problem_name'], s['language']))
     with open('./{}/{}/{}/{}/{}'.format(output_dir_name, s['round_id'], s['problem_name'], s['language'],
-                                        src_file_name), 'w') as output:
+                                        src_file_name), 'w', encoding="utf-8") as output:
         output.write(source_code)
